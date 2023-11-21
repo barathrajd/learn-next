@@ -2,19 +2,19 @@ import { NextResponse } from 'next/server';
 import { users } from '@/app/utils/db';
 import { User } from '@/app/types/users';
 
+// All Users Data
 export async function GET() {
-  return NextResponse.json(users);
+  return NextResponse.json({ data: users }, { status: 200 });
 }
 
-export async function POST(req: Request) {
-  const { name, age, email, password } = (await req.json()) as User;
-
-  if (!name || !age || !email || !password) {
+export async function POST(req: Request, res: any) {
+  let { id, name, email, password } = (await req.json()) as User;
+  if (!id || !name || !email || !password) {
     return NextResponse.json(
-      { error: 'Required filed missed out' },
+      {
+        message: 'Please fill all the required inputs',
+      },
       { status: 400 }
     );
   }
-
-  return NextResponse.json({ message: 'New User Added' }, { status: 201 });
 }

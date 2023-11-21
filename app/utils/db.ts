@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { User } from '../types/users';
-
+let current = 1;
 const createUser = (): User => {
   const fakeBirthday = faker.date
     .birthdate({ min: 15, max: 65, mode: 'age' })
@@ -8,7 +8,7 @@ const createUser = (): User => {
   const currentYear = 2023;
 
   return {
-    id: faker.number.int({ min: 1 }),
+    id: current++,
     name: faker.person.fullName(),
     age: currentYear - fakeBirthday,
     email: faker.internet.email(),
